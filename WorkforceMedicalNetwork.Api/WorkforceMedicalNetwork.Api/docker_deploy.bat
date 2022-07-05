@@ -1,0 +1,1 @@
+docker push quay.io/workforcemedicalnetwork/ca-authenticate:latest

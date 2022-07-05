@@ -1,0 +1,1 @@
+docker build . -f Dockerfile_Deploy -t quay.io/workforcemedicalnetwork/ca-authenticate:latest

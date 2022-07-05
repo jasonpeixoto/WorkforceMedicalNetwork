@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{1C802CA5-B170-4714-A884-9E3456169ED1}|WorkforceMedicalNetwork.Api">
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WorkorceMedicalNetwork.Api" expanded="True">
+            <Node name="WorkorceMedicalNetwork.Api" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Extensions" expanded="True" />
+              <Node name="Interfaces" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="LocationRequestModel.cs" selected="True" />
+              </Node>
+              <Node name="Services" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.WorkorceMedicalNetwork.Api PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
