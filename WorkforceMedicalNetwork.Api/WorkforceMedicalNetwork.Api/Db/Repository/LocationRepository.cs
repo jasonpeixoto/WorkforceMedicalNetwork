@@ -3,8 +3,10 @@
 // 
 // ////////////////////////////////////////////////////////////////////////////////////
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WorkforceMedicalNetwork.Api.Db.Tables;
+using MongoDB.Driver;
 
 namespace WorkforceMedicalNetwork.Api.Db.Repository
 {
@@ -25,7 +27,7 @@ namespace WorkforceMedicalNetwork.Api.Db.Repository
         public async Task<LocationTbl> CreateLocationAsync(string email, string date, double latitude, double longitude)
         {
             LocationTbl record = new LocationTbl() {
-                    FullName = email,
+                    EmailAddress = email,
                     Date = date,
                     Latitude = latitude,
                     Longitude = longitude
@@ -35,6 +37,16 @@ namespace WorkforceMedicalNetwork.Api.Db.Repository
             await CreateAsync(record);
 
             return record;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<List<LocationTbl>> GetLocations(string email)
+        {
+            return await Collection.Find(x => x.EmailAddress == email).ToListAsync<LocationTbl>();
         }
     }
 }

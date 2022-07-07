@@ -12,7 +12,7 @@ namespace WorkforceMedicalNetwork.Api.Db.Tables
     {
         
         [BsonElement("EmailAddress")]
-        public string FullName { get; set; }
+        public string EmailAddress { get; set; }
 
         [BsonElement("Date")]
         public string Date { get; set; }

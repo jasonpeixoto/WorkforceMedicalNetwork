@@ -4,8 +4,10 @@
 // ////////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WorkforceMedicalNetwork.Api.Db.Repository;
+using WorkforceMedicalNetwork.Api.Db.Tables;
 using WorkforceMedicalNetwork.Api.Interfaces;
 using WorkforceMedicalNetwork.Api.Models;
 using WorkforceMedicalNetwork.Api.Utils;
@@ -66,6 +68,37 @@ namespace WorkforceMedicalNetwork.Api.Services
                 resultModel.errorCode = "Invalid";
             }
             return resultModel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public Task<List<LocationTbl>> GetLocations(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
+            return GetLocationsInternalAsync(email);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        private async Task<List<LocationTbl>> GetLocationsInternalAsync(string email)
+        {
+            List<LocationTbl> locations = null;
+            if (await (new UserRepository()).IsEmailExistAsync(email))
+            {
+                locations = await (new LocationRepository()).GetLocations(email);
+            }
+            return locations;
         }
     }
 }
