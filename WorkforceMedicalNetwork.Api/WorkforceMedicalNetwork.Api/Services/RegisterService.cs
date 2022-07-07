@@ -54,7 +54,8 @@ namespace WorkforceMedicalNetwork.Api.Services
 
                 // ok user created here
                 resultModel.created = true;
-                resultModel.token = requestModel.emailAddress;
+                resultModel.authenticated = true;
+                resultModel.token = requestModel.emailAddress.Encrypt();
             }
             else
             {
