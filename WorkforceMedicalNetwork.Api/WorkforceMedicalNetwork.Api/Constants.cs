@@ -7,15 +7,17 @@ namespace WorkforceMedicalNetwork.Api
 {
     public static class Constants
     {
-        public static string OktaAuthEndpoint => @"/api/v1/authn";
-        
+
+        public static string ConnectionString => "mongodb://work:work@167.99.53.153:27017/?serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&authSource=WorkForceMedicalNetwork&authMechanism=SCRAM-SHA-256&3t.uriVersion=3&3t.alwaysShowAuthDB=true&3t.alwaysShowDBFromUserRole=true";
+        public static string MongoDatabaseName => "WorkForceMedicalNetwork";
+        public static string UsersCollectionName => "Users";
+        public static string LocationsCollectionName => "Locations";
+
         public static string RoutePrefixString => "api/swagger";
 
         public static string HttpAcceptTypeJson => "application/json";
 
         public static string ApiCorsPolicyName => "SubmitFactorApiPolicy";
-
-        public static string SSWS => "SSWS";
 
         public static string StartingWebHostString => "Starting web host for Workforce Medical Network API";
 

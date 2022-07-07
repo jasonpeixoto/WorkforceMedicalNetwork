@@ -45,6 +45,7 @@ namespace WorkforceMedicalNetwork.Api
         {
             Log.Information("WorkforceMedicalNetwork.BuildLogger enter");
             var env = System.Environment.GetEnvironmentVariable(Constants.EnvironmentVariableString);
+
             var loggerConfiguration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true)
@@ -62,15 +63,17 @@ namespace WorkforceMedicalNetwork.Api
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
+        [Obsolete]
         public static void CreateHostBuilder(string[] args)
         {
             Log.Information("WorkforceMedicalNetwork.UseGlobalExceptionHandling enter");
 
             if (args == null) return;
-            WebHost.CreateDefaultBuilder(args).
-                UseStartup<Startup>().
-                UseSerilog(Logger).
-                Build().Run();
+            var builder = WebHost.CreateDefaultBuilder(args);
+
+            builder.UseStartup<Startup>();
+            builder.UseSerilog(Logger);
+            builder.Build().Run();
         }
     }
 }

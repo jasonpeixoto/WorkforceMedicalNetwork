@@ -3,10 +3,7 @@
 // 
 // ////////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -34,10 +31,11 @@ namespace WorkforceMedicalNetwork.Api.Extensions
 
                 // Setup Swagger to read from XML comments in the assembly. 
                 // Set the comments path for the Swagger JSON and UI.
+                /*
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 o.IncludeXmlComments(xmlPath);
-
+                */
                 //add authorization functionality - to enter bearer token and add bearer token to all api calls
                 o.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

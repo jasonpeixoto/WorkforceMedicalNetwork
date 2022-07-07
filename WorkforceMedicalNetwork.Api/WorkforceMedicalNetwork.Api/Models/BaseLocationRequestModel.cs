@@ -7,18 +7,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkforceMedicalNetwork.Api.Models
 {
-    public class LocationRequestModel : BaseLocationRequestModel
+    public class BaseLocationRequestModel
     {
         [Required]
-        public string token { get; set; }
+        public string emailAddress { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool IsValid()
-        {
-            return  !string.IsNullOrEmpty(emailAddress);
-        }
+        [Required]
+        public string date { get; set; }
+
+        [Required]
+        public double latitude { get; set; }
+
+        [Required]
+        public double longitude { get; set; }
     }
 }
+

@@ -13,8 +13,19 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
     <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+    <PackageReference Include="MongoDB.Bson" Version="2.16.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.16.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="MongoDB.Driver.Core" />
+    <None Remove="Db\" />
+    <None Remove="Db\Models\" />
+    <None Remove="Db\Services\" />
+    <None Remove="MongoDB.Bson" />
+    <None Remove="MongoDB.Driver" />
+    <None Remove="Utils\" />
+  </ItemGroup>
   <ItemGroup>
     <None Update="VNSTherapy.ClinicianApi.Authenticate.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -22,7 +33,16 @@
     <None Update="WorkorceMedicalNetwork.Api.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="WorkforceMedicalNetwork.Api.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Folder Include="Db\" />
+    <Folder Include="Db\Tables\" />
+    <Folder Include="Db\Repository\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
 </Project>

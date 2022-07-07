@@ -2,10 +2,13 @@
 // 
 // 
 // ////////////////////////////////////////////////////////////////////////////////////
+
 using System;
 using System.Threading.Tasks;
+using WorkforceMedicalNetwork.Api.Db.Repository;
 using WorkforceMedicalNetwork.Api.Interfaces;
 using WorkforceMedicalNetwork.Api.Models;
+using WorkforceMedicalNetwork.Api.Utils;
 
 namespace WorkforceMedicalNetwork.Api.Services
 {
@@ -22,7 +25,7 @@ namespace WorkforceMedicalNetwork.Api.Services
         /// <returns></returns>
         public Task<RegisterResponseModel> Register(RegisterRequestModel requestModel)
         {
-            if ((requestModel == null) || requestModel.IsValid())
+            if ((requestModel == null) || !requestModel.IsValid())
             {
                 throw new ArgumentNullException(nameof(requestModel));
             }
@@ -39,9 +42,25 @@ namespace WorkforceMedicalNetwork.Api.Services
         private async Task<RegisterResponseModel> RegisterInternalAsync(RegisterRequestModel requestModel)
         {
             var resultModel = new RegisterResponseModel();
+            var userRepository = new UserRepository();
 
-            // access DAL here
+            if (!await userRepository.IsEmailExistAsync(requestModel.emailAddress))
+            {
+                // create user here
+                await userRepository.CreateUserAsync(requestModel);
 
+                // create location record
+                await Utils.Utils.CreateLocationAsync(requestModel);
+
+                // ok user created here
+                resultModel.created = true;
+                resultModel.token = requestModel.emailAddress;
+            }
+            else
+            {
+                resultModel.created = false;
+                resultModel.errorCode = "Invalid";
+            }
             return resultModel;
         }
     }
