@@ -10,7 +10,7 @@ namespace WorkforceMedicalNetwork.Api.Models
     public class BaseLocationRequestModel
     {
         [Required]
-        public string emailAddress { get; set; }
+        public string email { get; set; }
 
         [Required]
         public string date { get; set; }

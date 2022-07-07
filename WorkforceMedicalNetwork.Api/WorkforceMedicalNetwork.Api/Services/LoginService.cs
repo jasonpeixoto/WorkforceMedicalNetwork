@@ -44,13 +44,13 @@ namespace WorkforceMedicalNetwork.Api.Services
             var resultModel = new LoginResponseModel();
             var userRepository = new UserRepository();
 
-            if(await userRepository.IsUserExistAsync(requestModel.emailAddress, requestModel.password))
+            if(await userRepository.IsUserExistAsync(requestModel.email, requestModel.password))
             {
                 // create location record
                 await Utils.Utils.CreateLocationAsync(requestModel);
 
                 resultModel.authenticated = true;
-                resultModel.token = requestModel.emailAddress.Encrypt();
+                resultModel.token = requestModel.email.Encrypt();
             } else
             {
                 resultModel.authenticated = false;

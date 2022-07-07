@@ -44,7 +44,7 @@ namespace WorkforceMedicalNetwork.Api.Services
             var resultModel = new RegisterResponseModel();
             var userRepository = new UserRepository();
 
-            if (!await userRepository.IsEmailExistAsync(requestModel.emailAddress))
+            if (!await userRepository.IsEmailExistAsync(requestModel.email))
             {
                 // create user here
                 await userRepository.CreateUserAsync(requestModel);
@@ -55,7 +55,7 @@ namespace WorkforceMedicalNetwork.Api.Services
                 // ok user created here
                 resultModel.created = true;
                 resultModel.authenticated = true;
-                resultModel.token = requestModel.emailAddress.Encrypt();
+                resultModel.token = requestModel.email.Encrypt();
             }
             else
             {

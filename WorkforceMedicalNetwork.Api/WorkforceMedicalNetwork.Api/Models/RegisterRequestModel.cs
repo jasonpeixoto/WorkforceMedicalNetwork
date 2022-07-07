@@ -22,7 +22,7 @@ namespace WorkforceMedicalNetwork.Api.Models
         public bool IsValid()
         {
             return  !string.IsNullOrEmpty(fullName) &&
-                    !string.IsNullOrEmpty(emailAddress) &&
+                    !string.IsNullOrEmpty(email) &&
                     !string.IsNullOrEmpty(password);
         }
     }

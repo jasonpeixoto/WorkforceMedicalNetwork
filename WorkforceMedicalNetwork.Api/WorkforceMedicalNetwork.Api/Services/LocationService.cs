@@ -48,12 +48,12 @@ namespace WorkforceMedicalNetwork.Api.Services
             var tokenEmail = requestModel.token.Decrypt();
 
             // force a login
-            if (tokenEmail == null || string.IsNullOrEmpty(tokenEmail) || (tokenEmail != requestModel.emailAddress))
+            if (tokenEmail == null || string.IsNullOrEmpty(tokenEmail) || (tokenEmail != requestModel.email))
             {
                 resultModel.login = true;
                 resultModel.errorCode = "Invalid";
             }
-            else if (await userRepository.IsEmailExistAsync(requestModel.emailAddress))
+            else if (await userRepository.IsEmailExistAsync(requestModel.email))
             {
                 // create location record
                 await Utils.Utils.CreateLocationAsync(requestModel);

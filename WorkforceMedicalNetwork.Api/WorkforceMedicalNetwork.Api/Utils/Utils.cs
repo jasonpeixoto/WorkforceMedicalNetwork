@@ -19,7 +19,7 @@ namespace WorkforceMedicalNetwork.Api.Utils
             // add user to database
             await userRepository.CreateUserAsync(
                 registerRequestModel.fullName,
-                registerRequestModel.emailAddress,
+                registerRequestModel.email,
                 registerRequestModel.password
             );
         }
@@ -42,7 +42,7 @@ namespace WorkforceMedicalNetwork.Api.Utils
         public static async Task CreateLocationAsync(this LocationRepository locationRepository, BaseLocationRequestModel locationRequestModel)
         {
             await locationRepository.CreateLocationAsync(
-                locationRequestModel.emailAddress,
+                locationRequestModel.email,
                 locationRequestModel.date,
                 locationRequestModel.latitude,
                 locationRequestModel.longitude

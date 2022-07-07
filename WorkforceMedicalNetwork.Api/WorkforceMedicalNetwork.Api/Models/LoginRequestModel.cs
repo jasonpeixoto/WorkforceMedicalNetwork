@@ -18,7 +18,7 @@ namespace WorkforceMedicalNetwork.Api.Models
         /// <returns></returns>
         public bool IsValid()
         {
-            return  !string.IsNullOrEmpty(emailAddress) &&
+            return  !string.IsNullOrEmpty(email) &&
                     !string.IsNullOrEmpty(password);
         }
     }
