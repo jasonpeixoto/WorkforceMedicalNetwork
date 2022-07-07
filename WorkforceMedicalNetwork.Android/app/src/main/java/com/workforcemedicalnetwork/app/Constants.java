@@ -6,8 +6,10 @@ import com.workforcemedicalnetwork.app.models.ImageData;
 public class Constants {
     public static Boolean UseInternalBrowser = true;
     public static Boolean EnableMqtt = true;
-    public static Boolean EnableApi = false;
-    public static String EndPoint = "http://127.0.0.1/";
+    public static Boolean EnableApi = true;
+
+    public static String EndPoint = "http://138.197.78.129";
+    //public static String EndPoint = "http://10.1.10.212:5001/";
     public static String MqttUrl = "tcp://159.203.93.5:1883";
     public static int NotifyGps = 5 * 60 * 1000;
 

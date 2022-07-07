@@ -25,8 +25,7 @@ import com.workforcemedicalnetwork.app.restapi.response.LocationResponse;
 
 public class Utils {
 
-    public static String GetCurrentDateTime()
-    {
+    public static String GetCurrentDateTime() {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.SSS Z");
         return df.format(Calendar.getInstance().getTime());
     }
@@ -44,8 +43,7 @@ public class Utils {
         return false;
     }
 
-    public static  Boolean IsLoggedIn(Context context)
-    {
+    public static  Boolean IsLoggedIn(Context context) {
         if(Cache.getAuthToken().isEmpty()) {
             Intent i = new Intent(context, MainActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -55,8 +53,7 @@ public class Utils {
     }
 
     private static Gson gson = new Gson();
-    public static void SendGpsLocation()
-    {
+    public static void SendGpsLocation() {
         if (Cache.getEmailAddress().isEmpty()) return;
 
         LocationRequest locationRequest = new LocationRequest();
@@ -69,12 +66,7 @@ public class Utils {
 
         if (Constants.EnableApi == true) {
             ApiInterface apiService = APIClient.getClient().create(ApiInterface.class);
-            Call<LocationResponse> apiCall = apiService.location(
-                    locationRequest.getEmail(),
-                    locationRequest.getDate(),
-                    locationRequest.getLatitude(),
-                    locationRequest.getLongitude()
-            );
+            Call<LocationResponse> apiCall = apiService.location(locationRequest);
 
             apiCall.enqueue(new Callback<LocationResponse>() {
                 @Override
@@ -102,7 +94,7 @@ public class Utils {
     public static void AskToExit(final Activity context, String title) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
-        builder.setMessage("Do you want to Logout?");
+        builder.setMessage(title);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

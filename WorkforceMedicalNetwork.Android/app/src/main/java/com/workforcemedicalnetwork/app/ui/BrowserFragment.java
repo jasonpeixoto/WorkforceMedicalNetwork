@@ -15,8 +15,7 @@ public class BrowserFragment extends Fragment {
     private WebView webView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
         String url = bundle.getString("url", "https://www.google.com");
 

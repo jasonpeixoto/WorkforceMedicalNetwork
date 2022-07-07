@@ -27,8 +27,7 @@ public class Cache {
         return gPSTracker;
     }
 
-    public static GPSTracker setGPSTracker(GPSTracker gPSTracker)
-    {
+    public static GPSTracker setGPSTracker(GPSTracker gPSTracker) {
         return Cache.gPSTracker = gPSTracker;
     }
 
@@ -37,8 +36,7 @@ public class Cache {
         return mainActivity;
     }
 
-    public static MainActivity setMainActivity(MainActivity mainActivity)
-    {
+    public static MainActivity setMainActivity(MainActivity mainActivity) {
         return Cache.mainActivity = mainActivity;
     }
 
@@ -47,8 +45,7 @@ public class Cache {
         return mqttAndroidClient;
     }
 
-    public static MqttClient setMqttAndroidClient(MqttClient mqttAndroidClient)
-    {
+    public static MqttClient setMqttAndroidClient(MqttClient mqttAndroidClient) {
         return Cache.mqttAndroidClient = mqttAndroidClient;
     }
 

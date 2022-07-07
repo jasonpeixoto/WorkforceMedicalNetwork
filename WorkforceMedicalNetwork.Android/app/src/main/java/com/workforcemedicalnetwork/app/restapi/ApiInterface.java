@@ -1,33 +1,30 @@
 package com.workforcemedicalnetwork.app.restapi;
 
+import com.workforcemedicalnetwork.app.restapi.Request.LocationRequest;
+import com.workforcemedicalnetwork.app.restapi.Request.LoginRequest;
+import com.workforcemedicalnetwork.app.restapi.Request.RegistrationRequest;
 import com.workforcemedicalnetwork.app.restapi.response.*;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiInterface
 {
     // Register Account
-    @FormUrlEncoded             // annotation used in POST type requests
+    @Headers({"accept: application/json", "Content-Type: application/json"})
     @POST("/api/location")      // API's endpoints
-    Call<LocationResponse> location(@Field("email") String email,
-                                    @Field("date") String date,
-                                    @Field("latitude") double latitude,
-                                    @Field("longitude") double longitude);
+    Call<LocationResponse> location(@Body LocationRequest request);
 
     // Register Account
-    @FormUrlEncoded             // annotation used in POST type requests
+    @Headers({"accept: application/json", "Content-Type: application/json"})
     @POST("/api/register")      // API's endpoints
-    Call<RegisterResponse> registration(@Field("name") String name,
-                                        @Field("email") String email,
-                                        @Field("password") String password);
+    Call<RegisterResponse> registration(@Body RegistrationRequest request);
 
     // Login
-    @FormUrlEncoded             // annotation used in POST type requests
+    @Headers({"accept: application/json", "Content-Type: application/json"})
     @POST("/api/login")         // API's endpoints
-    Call<LoginResponse> login(@Field("email") String email,
-                              @Field("password") String password,
-                              @Field("latitude") double latitude,
-                              @Field("longitude") double longitude);
+    Call<LoginResponse> login(@Body LoginRequest request);
 }

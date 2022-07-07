@@ -56,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         Utils.AskToExit(this, "Do you want to Exit?");
     }
 
-    public void LoginAdaptor()
-    {
+    public void LoginAdaptor() {
         AuthenticationPagerAdapter pagerAdapter = new AuthenticationPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragmet(new LoginFragment());
         pagerAdapter.addFragmet(new RegisterFragment());
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
     }
 
-    static class AuthenticationPagerAdapter extends FragmentPagerAdapter {
+    static class AuthenticationPagerAdapter extends FragmentPagerAdapter  {
         private ArrayList<Fragment> fragmentList = new ArrayList<>();
 
         public AuthenticationPagerAdapter(FragmentManager fm) {

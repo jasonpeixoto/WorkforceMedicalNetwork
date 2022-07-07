@@ -1,26 +1,24 @@
 package com.workforcemedicalnetwork.app.restapi.response;
 
 public class LoginResponse {
-    private String success;
-    private String message;
-    private String userid;
+    private boolean authenticated;
+    private String token;
+    private String errorCode;
 
-    public String getSuccess() {
-        return success;
-    }
-    public void setSuccess(String success) {
-        this.success = success;
+    public boolean getAuthenticated() { return authenticated; }
+    public void setAuthenticated(boolean authenticated) {
+        this.authenticated = authenticated;
     }
 
-    public String getMessage() {
-        return message;
+    public String getErrorCode() {
+        return errorCode;
     }
-    public void setMessage(String message) { this.message = message; }
+    public void setErrorCode(String errorCode) { this.errorCode = errorCode; }
 
-    public String getUserid() {
-        return userid;
+    public String getToken() {
+        return token;
     }
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setToken(String userid) {
+        this.token = userid;
     }
 }

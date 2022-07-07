@@ -16,8 +16,7 @@ public class MqttClient {
     private String clientId;
     private MqttAndroidClient client;
 
-    public MqttClient Create(Context context)
-    {
+    public MqttClient Create(Context context) {
         this.context = context;
         if(Constants.EnableMqtt == false) return null;
         clientId = org.eclipse.paho.client.mqttv3.MqttClient.generateClientId();

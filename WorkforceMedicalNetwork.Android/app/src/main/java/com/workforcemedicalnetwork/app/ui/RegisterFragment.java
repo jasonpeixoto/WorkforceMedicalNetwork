@@ -15,11 +15,16 @@ import android.content.Context;
 import android.text.TextWatcher;
 import android.app.ProgressDialog;
 import android.view.LayoutInflater;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
+
+import com.workforcemedicalnetwork.app.Cache;
 import com.workforcemedicalnetwork.app.R;
 import com.workforcemedicalnetwork.app.Constants;
 import com.workforcemedicalnetwork.app.restapi.APIClient;
 import com.workforcemedicalnetwork.app.restapi.ApiInterface;
+import com.workforcemedicalnetwork.app.restapi.Request.RegistrationRequest;
 import com.workforcemedicalnetwork.app.restapi.response.RegisterResponse;
 import com.workforcemedicalnetwork.app.utils.Utils;
 
@@ -33,7 +38,6 @@ public class RegisterFragment extends Fragment {
     public RegisterFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,13 +99,13 @@ public class RegisterFragment extends Fragment {
         String emailAddress = edtEmailAddress.getText().toString();
         String password = edtPassword.getText().toString();
         String passwordRepeat = edtPasswordRepeat.getText().toString();
-        btnRegister.setEnabled(
+        boolean enabled =
                 (!emailAddress.isEmpty() && emailAddress.contains("@") && emailAddress.contains(".")) &&
-                        (!password.isEmpty() && (password.length() > 5)) &&
-                        (!passwordRepeat.isEmpty()) &&
-                        (password == passwordRepeat) &&
-                        (!fullName.isEmpty())
-        );
+                (!password.isEmpty() && (password.length() > 5)) &&
+                (!passwordRepeat.isEmpty()  && passwordRepeat.length() > 5) &&
+                (password.equals(passwordRepeat)) &&
+                (!fullName.isEmpty());
+        btnRegister.setEnabled(enabled);
     }
 
     private void registerApi(final Context context, String fullName, final String emailAddress, String password) {
@@ -113,25 +117,34 @@ public class RegisterFragment extends Fragment {
             progressDialog.setMessage("Please Wait");
             progressDialog.show();
 
-            ApiInterface apiService = APIClient.getClient().create(ApiInterface.class);
-            Call<RegisterResponse> apiCall = apiService.registration(
+            RegistrationRequest request = new RegistrationRequest();
+            request.Create(
                     fullName,
                     emailAddress,
-                    password
+                    password,
+                    Utils.GetCurrentDateTime(),
+                    Cache.getGPSTracker().getLatitude(),
+                    Cache.getGPSTracker().getLongitude()
             );
+
+            ApiInterface apiService = APIClient.getClient().create(ApiInterface.class);
+            Call<RegisterResponse> apiCall = apiService.registration(request);
             apiCall.enqueue(new Callback<RegisterResponse>() {
                 @Override
                 public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                    Log.d("response", response.body().getMessage());
+                    //Log.d("response", response.body().toString());
                     registerResponseData = response.body();
                     progressDialog.dismiss();
-
-                    Utils.LoginUser(getContext(), emailAddress, registerResponseData.getUserid());
+                    if(registerResponseData.getAuthenticated()) {
+                        Utils.LoginUser(getContext(), emailAddress, registerResponseData.getToken());
+                    } else {
+                        Toast.makeText(context, "Failed to register", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                    Log.d("response", t.getStackTrace().toString());
+                    //Log.d("response", t.getStackTrace().toString());
                     progressDialog.dismiss();
                 }
             });

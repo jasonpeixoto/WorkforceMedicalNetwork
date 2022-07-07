@@ -34,7 +34,6 @@ public class APIClient {
                         .writeTimeout(60, TimeUnit.SECONDS)
                         .build();
 
-
                 retrofit = new Retrofit.Builder()
                         .client(okHttpClient)
                         .baseUrl(Constants.EndPoint)

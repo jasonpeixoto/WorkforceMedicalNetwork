@@ -15,12 +15,15 @@ import android.content.Context;
 import android.text.TextWatcher;
 import android.app.ProgressDialog;
 import android.view.LayoutInflater;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import com.workforcemedicalnetwork.app.R;
 import com.workforcemedicalnetwork.app.Cache;
 import com.workforcemedicalnetwork.app.Constants;
 import com.workforcemedicalnetwork.app.restapi.APIClient;
 import com.workforcemedicalnetwork.app.restapi.ApiInterface;
+import com.workforcemedicalnetwork.app.restapi.Request.LoginRequest;
 import com.workforcemedicalnetwork.app.restapi.response.LoginResponse;
 import com.workforcemedicalnetwork.app.utils.Utils;
 
@@ -81,8 +84,7 @@ public class LoginFragment extends Fragment {
     }
 
     // add code later for quick check look for a @ and a . for now
-    private void ValidateEntries()
-    {
+    private void ValidateEntries() {
         String emailAddress = edtEmailAddress.getText().toString();
         String password = edtPassword.getText().toString();
         btnLogin.setEnabled(
@@ -103,29 +105,34 @@ public class LoginFragment extends Fragment {
             progressDialog.setMessage("Please Wait");
             progressDialog.show();
 
-            double latitude = Cache.getGPSTracker().getLatitude();
-            double longitude = Cache.getGPSTracker().getLongitude();
-            ApiInterface apiService = APIClient.getClient().create(ApiInterface.class);
-            Call<LoginResponse> apiCall = apiService.login(
+            LoginRequest request = new LoginRequest();
+            request.Create(
                     emailAddress,
                     password,
-                    latitude,
-                    longitude
+                    Utils.GetCurrentDateTime(),
+                    Cache.getGPSTracker().getLatitude(),
+                    Cache.getGPSTracker().getLongitude()
             );
+
+            ApiInterface apiService = APIClient.getClient().create(ApiInterface.class);
+            Call<LoginResponse> apiCall = apiService.login(request);
             apiCall.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    Log.d("response", response.body().getMessage());
+                    //Log.d("response", response.body().toString());
                     loginResponseData = response.body();
-                    Cache.setEmailAddress(emailAddress);
                     progressDialog.dismiss();
-
-                    Utils.LoginUser(getContext(), emailAddress,loginResponseData.getUserid());
+                    if(loginResponseData.getAuthenticated()) {
+                        Cache.setEmailAddress(emailAddress);
+                        Utils.LoginUser(getContext(), emailAddress, loginResponseData.getToken());
+                    } else {
+                        Toast.makeText(context, "Failed to Login", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Log.d("response", t.getStackTrace().toString());
+                    //Log.d("response", t.getStackTrace().toString());
                     progressDialog.dismiss();
                 }
             });

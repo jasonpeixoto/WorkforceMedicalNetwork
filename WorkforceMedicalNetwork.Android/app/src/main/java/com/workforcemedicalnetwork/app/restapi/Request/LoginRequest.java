@@ -1,11 +1,13 @@
 package com.workforcemedicalnetwork.app.restapi.Request;
 
 import com.google.gson.annotations.SerializedName;
-import com.workforcemedicalnetwork.app.Cache;
 
-public class LocationRequest {
+public class LoginRequest {
     @SerializedName("email")
     private String email;
+
+    @SerializedName("password")
+    private String password;
 
     @SerializedName("date")
     private String date;
@@ -16,15 +18,12 @@ public class LocationRequest {
     @SerializedName("longitude")
     private Double longitude;
 
-    @SerializedName("token")
-    private String token;
-
-    public LocationRequest Create(String email, String date, Double latitude, Double longitude) {
+    public LoginRequest Create(String email, String password, String date, Double latitude, Double longitude) {
         this.email = email;
         this.date = date;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.token = Cache.getAuthToken();
+        this.password = password;
         return this;
     }
 
@@ -56,8 +55,8 @@ public class LocationRequest {
         this.longitude = longitude;
     }
 
-    public String getToken() { return token; }
-    public void setToken(String token) {
-        this.token = token;
+    public String getPassword() { return password; }
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -19,17 +19,17 @@ public class GPSTracker extends Service implements LocationListener {
     private final Context mContext;
 
     // Flag for GPS status
-    boolean isGPSEnabled = false;
+    private boolean isGPSEnabled = false;
 
     // Flag for network status
-    boolean isNetworkEnabled = false;
+    private boolean isNetworkEnabled = false;
 
     // Flag for GPS status
-    boolean canGetLocation = false;
+    private boolean canGetLocation = false;
 
-    Location location; // Location
-    double latitude; // Latitude
-    double longitude; // Longitude
+    private Location location; // Location
+    private double latitude; // Latitude
+    private double longitude; // Longitude
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
@@ -106,21 +106,12 @@ public class GPSTracker extends Service implements LocationListener {
         return location;
     }
 
-
-    /**
-     * Stop using GPS listener
-     * Calling this function will stop using GPS in your app.
-     * */
     public void stopUsingGPS(){
         if(locationManager != null){
             locationManager.removeUpdates(GPSTracker.this);
         }
     }
 
-
-    /**
-     * Function to get latitude
-     * */
     public double getLatitude(){
         if(location != null){
             latitude = location.getLatitude();
@@ -130,10 +121,6 @@ public class GPSTracker extends Service implements LocationListener {
         return latitude;
     }
 
-
-    /**
-     * Function to get longitude
-     * */
     public double getLongitude(){
         if(location != null){
             longitude = location.getLongitude();
@@ -143,20 +130,12 @@ public class GPSTracker extends Service implements LocationListener {
         return longitude;
     }
 
-    /**
-     * Function to check GPS/Wi-Fi enabled
-     * @return boolean
-     * */
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
 
 
-    /**
-     * Function to show settings alert dialog.
-     * On pressing the Settings button it will launch Settings Options.
-     * */
-    public void showSettingsAlert(){
+    public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
